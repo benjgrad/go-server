@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GrapesJS Scroll Plugin</title>
+    <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/grapesjs"></script>
+    <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
+    <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
+    <script src="https://unpkg.com/grapesjs-blocks-flexbox"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-export"></script>
+    <script src="https://unpkg.com/grapesjs-navbar"></script>
+    <script src="https://unpkg.com/grapesjs-component-countdown"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-forms"></script>
+    <script src="https://unpkg.com/grapesjs-tabs"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-scroll"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-chartjs"></script>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="gjs" style="height:0px; overflow:hidden">
+        <div style="margin:100px 100px 25px; padding:25px; font:caption">
+            This is a demo content from index.html. For the development, you shouldn't edit this file, instead you can
+            copy and rename it to _index.html, on next server start the new file will be served, and it will be ignored
+            by
+            git.
+        </div>
+    </div>
+    <dialog id="loginDialog">
+        <form method="POST" action="/login">
+            <h3>Login</h3>
+            <!-- TODO submit this using the fetch API, and handle the response -->
+            <form method="POST" action="/login">
+                <p><label>Username</label><input name="username" type="text" value="" /></p>
+                <p><label>Password</label><input name="password" type="password" value="" /></p>
+                <input type="submit" value="Login" />
+            </form>
+        </form>
+    </dialog>
+
+
+    <script type="text/javascript">
+
+
+        const loginDialog = document.getElementById('loginDialog');
+        const username = loginDialog.querySelector('#username');
+        const password = loginDialog.querySelector('#password');
+        const loginBtn = loginDialog.querySelector('#loginBtn');
+
+        // If a browser doesn't support the dialog, then hide the
+        // dialog contents by default.
+        if (typeof loginDialog.showModal !== 'function') {
+            loginDialog.hidden = true;
+            /* a fallback script to allow this dialog/form to function
+               for legacy browsers that do not support <dialog>
+               could be provided here.
+            */
+        }
+        // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
+        loginDialog.addEventListener('close', () => {
+            console.log("close");
+        });
+        window.editor = grapesjs.init({
+            container: '#gjs',
+            // Get the content for the canvas directly from the element
+            // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
+            storageManager: {
+                type: 'remote', // Storage type. Available: local | remote
+                autosave: false, // Store data automatically
+                autoload: true, // Autoload stored data on init
+                recovery: true,
+                // Default storage options
+                options: {
+                    local: { key: `gjsProject-${window.location.pathname}` },
+                    remote: {
+                        urlStore: 'http://localhost:8459/login',
+                        urlLoad: 'http://localhost:8459/private/me',
+                    },
+                }
+            },
+            fromElement: true,
+            height: "100vh",
+            plugins: [
+                'grapesjs-tui-image-editor',
+                'gjs-blocks-basic',
+                'gjs-blocks-flexbox',
+                'grapesjs-plugin-export',
+                'grapesjs-navbar',
+                'grapesjs-component-countdown',
+                'grapesjs-plugin-forms',
+                'grapesjs-tabs',
+                'grapesjs-plugin-scroll',
+                'grapesjs-plugin-chartjs',
+            ],
+            pluginsOpts: {
+                'grapesjs-tui-image-editor': {
+                    config: {
+                        includeUI: {
+                            initMenu: 'filter',
+                        },
+                    },
+                    icons: {
+                        'menu.normalIcon.path': './icons/icon-d.svg',
+                        'menu.activeIcon.path': './icons/icon-b.svg',
+                        'menu.disabledIcon.path': './icons.icon-a.svg',
+                        'menu.hoverIcon.path': './icons/icon-c.svg',
+                        'submenu.normalIcon.path': './icons/icon-d.svg',
+                        'submenu.activeIcon.path': './icons/icon-c.svg',
+                    },
+                }
+            },
+        });
+
+        window.editor.Panels.addButton('options', [
+            {
+                id: 'save-database',
+                className: 'fa fa-floppy-o',
+                command: 'save-db',
+                attributes: {
+                    title: 'Save'
+                }
+            }]);
+        window.editor.Commands.add('save-db', {
+            run: function (editor, sender) {
+                sender && sender.set('active', 0); // turn off the button
+
+                fetch("/user/status", {
+                    method: "GET"
+                }).then(res => {
+                    console.log("Request complete! response:", res);
+                    if (res.ok) {
+                        editor.store();
+                    }
+                    else {
+                        loginDialog.showModal();
+                    }
+                });
+
+            }
+        });
+
+    </script>
+</body>
+
+</html>
