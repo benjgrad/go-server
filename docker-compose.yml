@@ -3,6 +3,7 @@ services:
   db:
     image: postgres:14.1-alpine
     restart: always
+    env_file: .env
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -10,3 +11,12 @@ services:
       - '5432:5432'
     volumes: 
       - ./postgres/data:/var/lib/postgresql/data
+  go-server:
+    build: ./go-server
+    env_file: .env
+    ports: 
+      - '8459:8459'
+    depends_on: 
+      - db
+    volumes: 
+      - ./go-server:/app
