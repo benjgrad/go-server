@@ -6,3 +6,10 @@ CREATE TABLE users (
 	created_on TIMESTAMP NOT NULL,
         last_login TIMESTAMP 
 );
+
+-- Populate table with sample data
+INSERT INTO users (username, password, email, created_on)
+VALUES ('hello', 'itsme', 'me@me.me', NOW());
+
+INSERT INTO users (username, password, email, created_on)
+VALUES ('guest', 'public', 'me2@me.me', NOW());

@@ -1,22 +1,33 @@
 version: '3.8'
 services:
   db:
-    image: postgres:14.1-alpine
+    image: postgres
     restart: always
     env_file: .env
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
     ports:
       - '5432:5432'
-    volumes: 
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+    volumes:
       - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/postgres.conf:/etc/postgresql/postgresql.conf
+      - ./postgres/schema:/docker-entrypoint-initdb.d
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
   go-server:
     build: ./go-server
+    restart: always
     env_file: .env
-    ports: 
-      - '8459:8459'
-    depends_on: 
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    links:
       - db
-    volumes: 
+    networks:
+      - default
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
       - ./go-server:/app
