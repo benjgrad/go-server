@@ -28,6 +28,17 @@
 <body>
 
     <div id="gjs" style="height:0px; overflow:hidden">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Times New Roman">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arial Black">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tahoma">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Verdana">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courier%20New">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
         <div style="margin:100px 100px 25px; padding:25px; font:caption">
             <p>Welcome to a web editor built with GrapesJS.</p>
             <p> To get started, start by dragging blocks in from the block
@@ -215,6 +226,33 @@
 
             }
         });
+
+        editor.on('load', function () {
+            let styleManager = window.editor.StyleManager;
+            console.log(styleManager.getSectors('Typography'))
+
+            let fontProperty = styleManager.getProperty('typography', 'font-family');
+            console.log(fontProperty)
+            var list = [];
+            fontProperty.set('list', list);
+            list = [
+                fontProperty.addOption({ value: "'Oswald', sans-serif", name: 'Oswald' }),
+                fontProperty.addOption({ value: "Helvetica Neue,Helvetica,Arial,sans-serif", name: 'Helvetica' }),
+                fontProperty.addOption({ value: "sans-serif", name: 'sans-serif' }),
+                fontProperty.addOption({ value: "Times New Roman", name: 'Times New Roman' }),
+                fontProperty.addOption({ value: "Arial Black", name: 'Arial Black' }),
+                fontProperty.addOption({ value: "Tahoma", name: 'Tahoma' }),
+                fontProperty.addOption({ value: "Verdana, Geneva, sans-serif", name: 'Verdana' }),
+                fontProperty.addOption({ value: "Courier New Courier, monospace", name: 'Courier New Courier' }),
+                fontProperty.addOption({ value: "'Lato', sans-serif", name: 'Lato' }),
+                fontProperty.addOption({ value: "'Open Sans', sans-serif", name: 'Open Sans' }),
+                fontProperty.addOption({ value: "'Montserrat', sans-serif", name: 'Montserrat' }),
+                fontProperty.addOption({ value: "'Tangerine'", name: 'Tangerine' }),
+            ];
+            fontProperty.set('list', list);
+            styleManager.render();
+        });
+
 
         window.editor = editor;
 
