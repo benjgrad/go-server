@@ -44,7 +44,7 @@ logoutBtn.addEventListener('click', () => {
     location.reload();
 })
 
-
+const prefix = "gjs-scroll"
 const editor = grapesjs.init({
     container: '#gjs',
     optsHtml: { withProps: true },
@@ -66,6 +66,7 @@ const editor = grapesjs.init({
             local: { key: `gjsProject-${window.location.pathname}` },
         },
     },
+
     fromElement: true,
     height: "100vh",
     plugins: [
@@ -96,6 +97,25 @@ const editor = grapesjs.init({
                 'submenu.normalIcon.path': './icons/icon-d.svg',
                 'submenu.activeIcon.path': './icons/icon-c.svg',
             },
+        },
+        'grapesjs-plugin-scroll': {
+            gjsScrollContent: '<div></div>',
+            gjsScrollStyles: `
+              .${prefix}-container{
+              }
+              
+              .${prefix}-inactive{
+                transform: translateY(150px);
+                opacity: 0;
+                transition: 1s all ease;
+              }
+              
+              .${prefix}-inactive.${prefix}-active{
+                transform: translateY(0);
+                opacity: 1;
+              }
+              `,
+            gjsScrollInnerStyles: (prefix) => `.${prefix}-container h1{ }`,
         }
     },
 });
