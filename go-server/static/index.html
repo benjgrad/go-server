@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
+<meta content="width=device-width, initial-scale=1" name="viewport" />
 
 <head>
     <meta charset="utf-8">
     <title>GrapesJS Scroll Plugin</title>
-    <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/grapesjs"></script>
+    <link href="/src/dist/css/grapes.min.css" rel="stylesheet">
+    <script src="/src/dist/grapes.min.js"></script>
     <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
     <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
     <script src="https://unpkg.com/grapesjs-blocks-flexbox"></script>
@@ -16,6 +17,8 @@
     <script src="https://unpkg.com/grapesjs-tabs"></script>
     <script src="https://unpkg.com/grapesjs-plugin-scroll"></script>
     <script src="https://unpkg.com/grapesjs-plugin-chartjs"></script>
+
+
     <style>
         body,
         html {
@@ -28,18 +31,23 @@
 <body>
 
     <div id="gjs" style="height:0px; overflow:hidden">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Times New Roman">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arial Black">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tahoma">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Verdana">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Courier%20New">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Times New Roman&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arial Black&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tahoma&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier%20New&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open%20Sans&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
         <div style="margin:100px 100px 25px; padding:25px; font:caption">
+
             <p>Welcome to a web editor built with GrapesJS.</p>
             <p> To get started, start by dragging blocks in from the block
                 manager in the top right corner. Styles can be edited by clicking on the paintbrush icon and selecting
@@ -65,6 +73,7 @@
             <form method="POST" action="/login">
                 <p><label>Username</label><input name="username" type="text" value="" /></p>
                 <p><label>Password</label><input name="password" type="password" value="" /></p>
+                <input type="button" id="loginCancelBtn" value="Cancel" />
                 <input type="submit" id="loginBtn" value="Login" />
             </form>
         </form>
@@ -74,189 +83,9 @@
         <input type="button" id="logoutCancelBtn" value="Cancel" />
         <input type="button" value="Logout" id="logoutBtn" />
     </dialog>
+    <script src="/src/index.js"></script>
 
 
-    <script type="text/javascript">
-
-
-        const loginDialog = document.getElementById('loginDialog');
-        const logoutDialog = document.getElementById('logoutDialog');
-        const username = loginDialog.querySelector('#username');
-        const password = loginDialog.querySelector('#password');
-        const loginBtn = loginDialog.querySelector('#loginBtn');
-        const logoutBtn = logoutDialog.querySelector('#logoutBtn');
-        const logoutCancelBtn = logoutDialog.querySelector('#logoutCancelBtn');
-
-        // If a browser doesn't support the dialog, then hide the
-        // dialog contents by default.
-        if (typeof loginDialog.showModal !== 'function') {
-            loginDialog.hidden = true;
-            /* a fallback script to allow this dialog/form to function
-               for legacy browsers that do not support <dialog>
-               could be provided here.
-            */
-        }
-        if (typeof logoutDialog.showModal !== 'function') {
-            logoutDialog.hidden = true;
-            /* a fallback script to allow this dialog/form to function
-               for legacy browsers that do not support <dialog>
-               could be provided here.
-            */
-        }
-        // "Confirm" button of form triggers "close" on dialog because of [method="dialog"]
-        loginDialog.addEventListener('close', () => {
-            // console.log("close");
-        });
-        logoutCancelBtn.addEventListener('click', () => {
-            logoutDialog.close();
-        });
-
-        logoutBtn.addEventListener('click', () => {
-            fetch("/logout", {
-                method: "GET"
-            });
-            logoutDialog.close();
-            location.reload();
-        })
-
-
-        const editor = grapesjs.init({
-            container: '#gjs',
-            // Get the content for the canvas directly from the element
-            // As an alternative we could use: `components: '<h1>Hello World Component!</h1>'`,
-            storageManager: {
-                type: 'remote', // Storage type. Available: local | remote
-                autosave: false, // Store data automatically
-                autoload: true, // Autoload stored data on init
-                recovery: true,
-                // Default storage options
-                options: {
-                    remote: {
-                        urlStore: '/page',
-                        urlLoad: '/page',
-                        onStore: (data) => ({ data: JSON.stringify(data) }),
-
-                    },
-                    local: { key: `gjsProject-${window.location.pathname}` },
-                },
-            },
-            fromElement: true,
-            height: "100vh",
-            plugins: [
-                'grapesjs-tui-image-editor',
-                'gjs-blocks-basic',
-                'gjs-blocks-flexbox',
-                'grapesjs-plugin-export',
-                'grapesjs-navbar',
-                'grapesjs-component-countdown',
-                'grapesjs-plugin-forms',
-                'grapesjs-tabs',
-                'grapesjs-plugin-scroll',
-                'grapesjs-plugin-chartjs',
-            ],
-            pluginsOpts: {
-                'grapesjs-tui-image-editor': {
-                    config: {
-                        includeUI: {
-                            initMenu: 'filter',
-                        },
-                    },
-                    icons: {
-                        'menu.normalIcon.path': './icons/icon-d.svg',
-                        'menu.activeIcon.path': './icons/icon-b.svg',
-                        'menu.disabledIcon.path': './icons.icon-a.svg',
-                        'menu.hoverIcon.path': './icons/icon-c.svg',
-                        'submenu.normalIcon.path': './icons/icon-d.svg',
-                        'submenu.activeIcon.path': './icons/icon-c.svg',
-                    },
-                }
-            },
-        });
-
-        editor.Panels.addButton('options', [
-            {
-                id: 'save-database',
-                className: 'fa fa-floppy-o',
-                command: 'save-db',
-                attributes: {
-                    title: 'Save'
-                }
-            }]);
-        editor.Panels.addButton('options', [
-            {
-                id: 'save-database',
-                className: 'fa fa-user',
-                command: 'login',
-                attributes: {
-                    title: 'Login'
-                }
-            }]);
-
-        editor.Commands.add('save-db', {
-            run: function (editor, sender) {
-                sender && sender.set('active', 0); // turn off the button
-
-                fetch("/user/status", {
-                    method: "GET"
-                }).then(res => {
-                    if (res.ok) {
-                        editor.store();
-                    }
-                    else {
-                        loginDialog.showModal();
-                    }
-                });
-
-            }
-        });
-        editor.Commands.add('login', {
-            run: function (editor, sender) {
-                sender && sender.set('active', 0); // turn off the button
-
-                fetch("/user/status", {
-                    method: "GET"
-                }).then(res => {
-                    if (res.ok) {
-                        logoutDialog.showModal();
-                    }
-                    else {
-                        loginDialog.showModal();
-                    }
-                });
-
-            }
-        });
-
-        editor.on('load', function () {
-            let styleManager = window.editor.StyleManager;
-            console.log(styleManager.getSectors('Typography'))
-
-            let fontProperty = styleManager.getProperty('typography', 'font-family');
-            console.log(fontProperty)
-            var list = [];
-            fontProperty.set('list', list);
-            list = [
-                fontProperty.addOption({ value: "'Oswald', sans-serif", name: 'Oswald' }),
-                fontProperty.addOption({ value: "Helvetica Neue,Helvetica,Arial,sans-serif", name: 'Helvetica' }),
-                fontProperty.addOption({ value: "sans-serif", name: 'sans-serif' }),
-                fontProperty.addOption({ value: "Times New Roman", name: 'Times New Roman' }),
-                fontProperty.addOption({ value: "Arial Black", name: 'Arial Black' }),
-                fontProperty.addOption({ value: "Tahoma", name: 'Tahoma' }),
-                fontProperty.addOption({ value: "Verdana, Geneva, sans-serif", name: 'Verdana' }),
-                fontProperty.addOption({ value: "Courier New Courier, monospace", name: 'Courier New Courier' }),
-                fontProperty.addOption({ value: "'Lato', sans-serif", name: 'Lato' }),
-                fontProperty.addOption({ value: "'Open Sans', sans-serif", name: 'Open Sans' }),
-                fontProperty.addOption({ value: "'Montserrat', sans-serif", name: 'Montserrat' }),
-                fontProperty.addOption({ value: "'Tangerine'", name: 'Tangerine' }),
-            ];
-            fontProperty.set('list', list);
-            styleManager.render();
-        });
-
-
-        window.editor = editor;
-
-    </script>
 </body>
 
 </html>

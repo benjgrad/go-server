@@ -1,0 +1,494 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GrapesJS Scroll Plugin</title>
+    <link href="/src/dist/css/grapes.min.css" rel="stylesheet">
+    <script src="/src/dist/grapes.min.js"></script>
+    <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
+    <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
+    <script src="https://unpkg.com/grapesjs-blocks-flexbox"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-export"></script>
+    <!-- <script src="https://unpkg.com/grapesjs-navbar"></script> -->
+    <script src="https://unpkg.com/grapesjs-component-countdown"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-forms"></script>
+    <script src="https://unpkg.com/grapesjs-tabs"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-scroll"></script>
+    <script src="https://unpkg.com/grapesjs-plugin-chartjs"></script>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="gjs" style="height:0px; overflow:hidden">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Times New Roman&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arial Black&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tahoma&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier%20New&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open%20Sans&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap">
+        <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+        <div style="margin:100px 100px 25px; padding:25px; font:caption">
+            <h1>This is a demo of the issue addressed in <a target="_blank"
+                    href="https://github.com/benjgrad/grapesjs/commit/9e00994fd278120a366e528cf35aa043fdf2ceca">these
+                    code changes</a></h1>
+            <h2>
+                Steps to reproduce the issue:
+            </h2>
+            <p> To reproduce the issue, drag in some blocks. (Both components contain custom code, and you can
+                find more info on the plugins below, but for the charts.js plugin you'll need to set some component
+                settings.) Next, edit the html which should contain the component scripts but not the data-gjs-*
+                attributes. Click save on the modal.
+            </p>
+            <h2>
+                Observed behaviour:
+            </h2>
+            <p>
+                When the user clicks save, grapesjs stops recognizing the component, and the script is removed.
+            </p>
+            <h2>
+                More info:
+            </h2>
+            <p>
+                For a working demo of the solution, please visit <a href="/" target="_blank">this page running the
+                    suggested changes on build of the master branch</a>. I tried pushing this to artf/grapesjs so I can
+                create a PR, but I don't have permissions.
+            </p>
+            <p>
+                For more information on this project, check out the repo for <a
+                    href="https://github.com/benjgrad/go-server">go-server</a>, and for more details on the editor,
+                please visit <a href="https://github.com/benjgrad/www-resume">www-resume</a>, which takes advantage
+                of
+                <a href="https://github.com/benjgrad/grapesjs-plugin-scroll">grapesjs-plugin-scroll</a> and <a
+                    href="https://github.com/benjgrad/grapesjs-plugin-chartjs">grapesjs-plugin-chartjs</a>.
+            </p>
+            <p>
+                Since user signup currently is not supported, you can use Username: guest and Password: public.
+            </p>
+        </div>
+        <div id="ikmpt" class="gjs-scroll-container gjs-scroll-inactive" data-gjs-type="gjs-scroll">
+            <div class="text-container" data-gjs-type="gjs-scroll-content">
+                <div id="ixokb" labels="[&quot;&quot;,&quot;&quot;,&quot;&quot;]"
+                    data="[{&quot;data&quot;:[46,97,98],&quot;label&quot;:&quot;&quot;,&quot;color&quot;:{&quot;r&quot;:0,&quot;g&quot;:0,&quot;b&quot;:0,&quot;a&quot;:&quot;0.3&quot;}},{&quot;data&quot;:[83,7,22],&quot;color&quot;:{&quot;r&quot;:172,&quot;g&quot;:218,&quot;b&quot;:197,&quot;a&quot;:0.3}}]"
+                    data-gjs-tagName="div" data-gjs-type="gjs-charts" data-gjs-tagname="div"
+                    data-gjs-data="{&quot;id&quot;:&quot;ixokb&quot;,&quot;labels&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;],&quot;values&quot;:[{&quot;data&quot;:[46,97,98],&quot;label&quot;:&quot;&quot;,&quot;color&quot;:{&quot;r&quot;:0,&quot;g&quot;:0,&quot;b&quot;:0,&quot;a&quot;:&quot;0.3&quot;}},{&quot;data&quot;:[83,7,22],&quot;color&quot;:{&quot;r&quot;:172,&quot;g&quot;:218,&quot;b&quot;:197,&quot;a&quot;:0.3}}]}">
+                    <canvas id="i2ev3" class="chartsjs" data-gjs-tagName="canvas" data-gjs-type="gjs-charts_canvas"
+                        data-gjs-tagname="canvas">[object Object]
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <script>var props = {
+                "ikmpt": {
+                    "threshold": 150, "prefix": "gjs-scroll"
+                }
+            };
+            var ids = Object.keys(props).map(function (id) {
+                return '#' + id
+            }
+            ).join(',');
+            var els = document.querySelectorAll(ids);
+            for (var i = 0, len = els.length; i < len; i++) {
+                var el = els[i];
+                (function (t) {
+                    var e = t.prefix;
+                    window.addEventListener("scroll", (function () {
+                        for (var t = document.querySelectorAll(".".concat(e, "-container")), n = 0; n < t.length; n++) {
+                            var r, i = null !== (r = t[n].getAttribute("threshold")) && void 0 !== r ? r : 150, o = t[n].getAttribute("scrollType");
+                            o ? o += "_" : o = "";
+                            var a = window.innerHeight;
+                            t[n].getBoundingClientRect().top < a - i ? t[n].classList.add("".concat(o).concat(e, "-active")) : t[n].classList.remove("".concat(o).concat(e, "-active"))
+                        }
+                    }
+                    ))
+                }
+                    .bind(el))(props[el.id]);
+            }
+            var props = {
+                "ixokb": {
+                    "data": {
+                        "id": "ixokb", "labels": ["", "", ""], "values": [{
+                            "data": [46, 97, 98], "label": "", "color": {
+                                "r": 0, "g": 0, "b": 0, "a": "0.3"
+                            }
+                        }
+                            , {
+                            "data": [83, 7, 22], "color": {
+                                "r": 172, "g": 218, "b": 197, "a": 0.3
+                            }
+                        }
+                        ]
+                    }
+                }
+            };
+            var ids = Object.keys(props).map(function (id) {
+                return '#' + id
+            }
+            ).join(',');
+            var els = document.querySelectorAll(ids);
+            for (var i = 0, len = els.length; i < len; i++) {
+                var el = els[i];
+                (function (t) {
+                    if (t.data && t.data.labels) {
+                        var e, n, r = [];
+                        null === (e = t.data) || void 0 === e || null === (n = e.values) || void 0 === n || n.forEach((function (t) {
+                            r.push({
+                                label: t.label, backgroundColor: "rgba(".concat(t.color.r, ",").concat(t.color.g, ",").concat(t.color.b, ",").concat(t.color.a, ")"), pointBackgroundColor: "rgba(".concat(t.color.r, ",").concat(t.color.g, ",").concat(t.color.b, ",1)"), borderColor: "rgba(".concat(t.color.r, ",").concat(t.color.g, ",").concat(t.color.b, ",1)"), pointBorderColor: "#fff", pointHoverBackgroundColor: "#fff", pointHoverBorderColor: "rgba(".concat(t.color.r, ",").concat(t.color.g, ",").concat(t.color.b, ",1)"), data: t.data
+                            }
+                            )
+                        }
+                        ));
+                        var i = function () {
+                            var e = {
+                                labels: t.data.labels, datasets: r
+                            }
+                                , n = document.getElementById(t.data.id), i = n.querySelector(".chartsjs");
+                            n && new Chart(i, {
+                                type: 'radar', data: e, options: {
+                                    responsive: !0, tooltips: {
+                                        mode: 'label'
+                                    }
+                                    , scales: {
+                                        r: {
+                                            angleLines: {
+                                                display: !1
+                                            }
+                                            , suggestedMin: 0
+                                        }
+                                    }
+                                }
+                            }
+                            )
+                        };
+                        if ('undefined' == typeof someExtLib) {
+                            var o = document.createElement('script');
+                            o.onload = i, o.setAttribute('type', 'text/javascript'), o.src = 'https://cdn.jsdelivr.net/npm/chart.js', document.body.appendChild(o)
+                        }
+                        else i()
+                    }
+                }
+                    .bind(el))(props[el.id]);
+            }
+        </script>
+    </div>
+    <dialog id="loginDialog">
+        <form method="POST" action="/login">
+            <h3>Login</h3>
+            <!-- TODO submit this using the fetch API, and handle the response -->
+            <form method="POST" action="/login">
+                <p><label>Username</label><input name="username" type="text" value="" /></p>
+                <p><label>Password</label><input name="password" type="password" value="" /></p>
+                <input type="submit" id="loginBtn" value="Login" />
+            </form>
+        </form>
+    </dialog>
+    <dialog id="logoutDialog">
+        <h3>Logout</h3>
+        <input type="button" id="logoutCancelBtn" value="Cancel" />
+        <input type="button" value="Logout" id="logoutBtn" />
+    </dialog>
+
+
+    <script type="text/javascript">
+
+
+        const loginDialog = document.getElementById('loginDialog');
+        const logoutDialog = document.getElementById('logoutDialog');
+        const username = loginDialog.querySelector('#username');
+        const password = loginDialog.querySelector('#password');
+        const loginBtn = loginDialog.querySelector('#loginBtn');
+        const logoutBtn = logoutDialog.querySelector('#logoutBtn');
+        const logoutCancelBtn = logoutDialog.querySelector('#logoutCancelBtn');
+
+
+
+        if (typeof loginDialog.showModal !== 'function') {
+            loginDialog.hidden = true;
+            /* a fallback script to allow this dialog/form to function
+               for legacy browsers that do not support <dialog>
+               could be provided here.
+            */
+        }
+        if (typeof logoutDialog.showModal !== 'function') {
+            logoutDialog.hidden = true;
+            /* a fallback script to allow this dialog/form to function
+               for legacy browsers that do not support <dialog>
+               could be provided here.
+            */
+        }
+
+        loginDialog.addEventListener('close', () => {
+
+        });
+        logoutCancelBtn.addEventListener('click', () => {
+            logoutDialog.close();
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            fetch("/logout", {
+                method: "GET"
+            });
+            logoutDialog.close();
+            location.reload();
+        })
+
+
+        const editor = grapesjs.init({
+            container: '#gjs',
+            /// @artf This is the new config value
+            optsHtml: { withProps: false },
+
+
+            storageManager: {
+                type: 'remote',
+                autosave: false,
+                autoload: true,
+                recovery: true,
+
+                options: {
+                    remote: {
+                        urlStore: '/page',
+                        urlLoad: '/page',
+                        onStore: (data) => ({ data: JSON.stringify(data) }),
+
+                    },
+                    local: { key: `gjsProject-${window.location.pathname}` },
+                },
+            },
+            fromElement: true,
+            height: "100vh",
+            plugins: [
+                'grapesjs-plugin-scroll',
+                'grapesjs-plugin-chartjs',
+            ],
+            pluginsOpts: {
+                'grapesjs-tui-image-editor': {
+                    config: {
+                        includeUI: {
+                            initMenu: 'filter',
+                        },
+                    },
+                    icons: {
+                        'menu.normalIcon.path': './icons/icon-d.svg',
+                        'menu.activeIcon.path': './icons/icon-b.svg',
+                        'menu.disabledIcon.path': './icons.icon-a.svg',
+                        'menu.hoverIcon.path': './icons/icon-c.svg',
+                        'submenu.normalIcon.path': './icons/icon-d.svg',
+                        'submenu.activeIcon.path': './icons/icon-c.svg',
+                    },
+                }
+            },
+        });
+
+        editor.Panels.addButton('options', [
+            {
+                id: 'save-database',
+                className: 'fa fa-floppy-o',
+                command: 'save-db',
+                attributes: {
+                    title: 'Save'
+                }
+            }]);
+        editor.Panels.addButton('options', [
+            {
+                id: 'save-database',
+                className: 'fa fa-user',
+                command: 'login',
+                attributes: {
+                    title: 'Login'
+                }
+            }]);
+
+        editor.Commands.add('save-db', {
+            run: function (editor, sender) {
+                sender && sender.set('active', 0);
+
+                fetch("/user/status", {
+                    method: "GET"
+                }).then(res => {
+                    if (res.ok) {
+                        editor.store();
+                    }
+                    else {
+                        loginDialog.showModal();
+                    }
+                });
+
+            }
+        });
+        editor.Commands.add('login', {
+            run: function (editor, sender) {
+                sender && sender.set('active', 0);
+
+                fetch("/user/status", {
+                    method: "GET"
+                }).then(res => {
+                    if (res.ok) {
+                        logoutDialog.showModal();
+                    }
+                    else {
+                        loginDialog.showModal();
+                    }
+                });
+
+            }
+        });
+
+        editor.on('load', function () {
+            let styleManager = window.editor.StyleManager;
+            let fontProperty = styleManager.getProperty('typography', 'font-family');
+            var list = [];
+            fontProperty.set('list', list);
+            list = [
+                fontProperty.addOption({ value: "'Oswald', sans-serif", name: 'Oswald' }),
+                fontProperty.addOption({ value: "Helvetica Neue,Helvetica,Arial,sans-serif", name: 'Helvetica' }),
+                fontProperty.addOption({ value: "sans-serif", name: 'sans-serif' }),
+                fontProperty.addOption({ value: "Times New Roman", name: 'Times New Roman' }),
+                fontProperty.addOption({ value: "Arial Black", name: 'Arial Black' }),
+                fontProperty.addOption({ value: "Tahoma", name: 'Tahoma' }),
+                fontProperty.addOption({ value: "Verdana, Geneva, sans-serif", name: 'Verdana' }),
+                fontProperty.addOption({ value: "Courier New Courier, monospace", name: 'Courier New Courier' }),
+                fontProperty.addOption({ value: "'Lato', sans-serif", name: 'Lato' }),
+                fontProperty.addOption({ value: "'Open Sans', sans-serif", name: 'Open Sans' }),
+                fontProperty.addOption({ value: "'Montserrat', sans-serif", name: 'Montserrat' }),
+                fontProperty.addOption({ value: "'Tangerine'", name: 'Tangerine' }),
+                fontProperty.addOption({ value: "'Playfair Display'", name: 'Playfair Display' }),
+                fontProperty.addOption({ value: "'Permanent Marker'", name: 'Permanent Marker' }),
+            ];
+            fontProperty.set('list', list);
+            styleManager.render();
+        });
+
+        var pfx = editor.getConfig().stylePrefix
+        var modal = editor.Modal
+        var cmdm = editor.Commands
+        var htmlCodeViewer = editor.CodeManager.getViewer('CodeMirror').clone()
+        var cssCodeViewer = editor.CodeManager.getViewer('CodeMirror').clone()
+
+        var pnm = editor.Panels
+        var container = document.createElement('div')
+        var btnEdit = document.createElement('button')
+
+        htmlCodeViewer.set({
+            codeName: 'htmlmixed',
+            readOnly: 0,
+            theme: 'hopscotch',
+            autoBeautify: true,
+            autoCloseTags: true,
+            autoCloseBrackets: true,
+            lineWrapping: true,
+            styleActiveLine: true,
+            smartIndent: true,
+            indentWithTabs: true
+        })
+
+        cssCodeViewer.set({
+            codeName: 'css',
+            readOnly: 0,
+            theme: 'hopscotch',
+            autoBeautify: true,
+            autoCloseTags: true,
+            autoCloseBrackets: true,
+            lineWrapping: true,
+            styleActiveLine: true,
+            smartIndent: true,
+            indentWithTabs: true
+        })
+
+        btnEdit.innerHTML = 'Save'
+        btnEdit.className = pfx + 'btn-prim ' + pfx + 'btn-import'
+        btnEdit.onclick = function () {
+            var html = htmlCodeViewer.editor.getValue()
+            var css = cssCodeViewer.editor.getValue()
+            editor.DomComponents.getWrapper().set('content', '')
+
+            editor.setComponents(html.trim())
+
+
+
+
+            editor.setStyle(css)
+            let gjsPage = document.getElementById("gjs");
+
+
+
+
+
+
+
+
+            modal.close()
+        }
+
+        cmdm.add('edit-code', {
+            run: function (editor, sender) {
+                sender && sender.set('active', 0)
+                var htmlViewer = htmlCodeViewer.editor
+                var cssViewer = cssCodeViewer.editor
+
+                modal.setTitle('Edit code')
+                if (!htmlViewer && !cssViewer) {
+                    var txtarea = document.createElement('textarea')
+                    var cssarea = document.createElement('textarea')
+
+                    container.appendChild(txtarea)
+                    container.appendChild(cssarea)
+
+                    container.appendChild(btnEdit)
+                    htmlCodeViewer.init(txtarea)
+                    cssCodeViewer.init(cssarea)
+
+                    htmlViewer = htmlCodeViewer.editor
+                    cssViewer = cssCodeViewer.editor
+
+                }
+                var InnerHtml = editor.getHtml()
+                var Css = editor.getCss()
+
+                modal.setContent('')
+                modal.setContent(container)
+                htmlCodeViewer.setContent(InnerHtml)
+                cssCodeViewer.setContent(Css)
+
+                modal.open()
+                htmlViewer.refresh()
+                cssViewer.refresh()
+
+            }
+        })
+
+        pnm.addButton('options',
+            [
+                {
+                    id: 'edit',
+                    className: 'fa fa-edit',
+                    command: 'edit-code',
+                    attributes: {
+                        title: 'Edit Code'
+                    }
+                }
+            ]
+        )
+
+
+        window.editor = editor;
+
+    </script>
+</body>
+
+</html>
