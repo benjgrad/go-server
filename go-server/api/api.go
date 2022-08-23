@@ -28,6 +28,8 @@ func Engine(db db.Database) *gin.Engine {
 	r.POST("/login", Login)
 	r.GET("/logout", Logout)
 
+	r.POST("/contact", Contact)
+
 	// Private group, require authentication to access
 	userCollection := r.Group("/user")
 	userCollection.Use(AuthRequired)
