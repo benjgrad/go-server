@@ -217,9 +217,7 @@ div#content-box>pre#highlight-area>span {
 .gjs-row {
     display: table;
     padding-top: 10px;
-    padding-right: 10px;
     padding-bottom: 10px;
-    padding-left: 10px;
     width: 100%;
 }
 
@@ -417,7 +415,7 @@ a {
     padding-top: 1px;
     padding-right: 0px;
     padding-bottom: 0px;
-    padding-left: 9px;
+
 }
 
 #iv70nc {
@@ -458,9 +456,10 @@ a {
 }
 
 #ik2nmt {
-    width: 90%;
+    width: 70%;
     position: relative;
     left: 50%;
+    margin-top: 10px;
     transform: translateX(-50%);
     max-width: 800px;
 }
@@ -469,7 +468,7 @@ a {
     position: relative;
     display: block;
     width: 100%;
-    height: 265px;
+    height: 350px;
 }
 
 #ir5w5q {
@@ -477,7 +476,7 @@ a {
     padding-top: 7px;
     padding-right: 0px;
     padding-bottom: 0px;
-    padding-left: 9px;
+
 }
 
 .container.fullwidth {
@@ -812,10 +811,7 @@ li {
 
 .container>* {
     flex-shrink: 0;
-    width: 100%;
     max-width: 100%;
-    padding-right: calc(var(--bs-gutter-x) * 0.5);
-    padding-left: calc(var(--bs-gutter-x) * 0.5);
     margin-top: var(--bs-gutter-y);
 }
 
@@ -1257,6 +1253,12 @@ li {
     padding-bottom: 0px;
     padding-left: 0px;
     transform: translateX(-50%);
+    flex-shrink: 100;
+    flex-basis: 100%;
+    overflow-y: visible;
+    flex-direction: column;
+    align-self: stretch;
+    flex-grow: 2;
 }
 
 #irgghl {
@@ -1321,10 +1323,9 @@ li {
 }
 
 #i58rhk {
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 12px;
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #iwk9d6 {
@@ -1400,10 +1401,9 @@ li {
 }
 
 #i4ml9s {
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 12px;
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #iidfoy {
@@ -1476,10 +1476,9 @@ li {
 }
 
 #itigvh {
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 12px;
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #iaggc6 {
@@ -1560,10 +1559,9 @@ li {
 }
 
 #i3dx1j {
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 12px;
+    width: 90%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #ictqwq {
@@ -1700,12 +1698,6 @@ li {
     padding-left: 10px;
 }
 
-#i4d2j1 {
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-}
 
 #ikytge {
     padding-top: 10px;
@@ -1776,6 +1768,7 @@ li {
 }
 
 #iixiji {
+    flex-shrink: 1;
     padding-top: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
