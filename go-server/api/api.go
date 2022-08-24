@@ -38,12 +38,13 @@ func Engine(db db.Database) *gin.Engine {
 	}
 
 	// Page collection
-	pageCollection := r.Group("/page/:name")
-
+	pageCollection := r.Group("/page")
 	pageCollection.Use(AuthRequired)
 	{
 		pageCollection.GET("", GetPage)
 		pageCollection.POST("", SetPage)
+		pageCollection.GET("/:name", GetPage)
+		pageCollection.POST("/:name", SetPage)
 	}
 	return r
 }

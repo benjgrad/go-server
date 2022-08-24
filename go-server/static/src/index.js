@@ -43,6 +43,8 @@ logoutBtn.addEventListener('click', () => {
     logoutDialog.close();
     location.reload();
 })
+const pageName = new URLSearchParams(window.location.search).get("page")
+const url = !pageName ? '/page' : `/page/${new URLSearchParams(window.location.search).get("page") ?? ""}`;
 
 const prefix = "gjs-scroll"
 const editor = grapesjs.init({
@@ -58,9 +60,9 @@ const editor = grapesjs.init({
         // Default storage options
         options: {
             remote: {
-                urlStore: `/page/${new URLSearchParams(window.location.search).get("page") ?? ""}`,
-                urlLoad: `/page/${new URLSearchParams(window.location.search).get("page") ?? ""}`,
-                onStore: (data) => ({ data: JSON.stringify(data) }),
+                urlStore: url,
+                urlLoad: url,
+                onStore: (data) => ({ name: pageName, data: JSON.stringify(data) }),
 
             },
             local: { key: `gjsProject-${window.location.pathname}` },
