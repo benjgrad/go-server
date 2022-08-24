@@ -58,8 +58,8 @@ const editor = grapesjs.init({
         // Default storage options
         options: {
             remote: {
-                urlStore: '/page',
-                urlLoad: '/page',
+                urlStore: `/page/${new URLSearchParams(window.location.search).get("page") ?? ""}`,
+                urlLoad: `/page/${new URLSearchParams(window.location.search).get("page") ?? ""}`,
                 onStore: (data) => ({ data: JSON.stringify(data) }),
 
             },
@@ -204,7 +204,6 @@ var modal = editor.Modal
 var cmdm = editor.Commands
 var htmlCodeViewer = editor.CodeManager.getViewer('CodeMirror').clone()
 var cssCodeViewer = editor.CodeManager.getViewer('CodeMirror').clone()
-//var jsCodeViewer = editor.CodeManager.getViewer('CodeMirror').clone()
 var pnm = editor.Panels
 var container = document.createElement('div')
 var btnEdit = document.createElement('button')
@@ -234,42 +233,15 @@ cssCodeViewer.set({
     smartIndent: true,
     indentWithTabs: true
 })
-
-//jsCodeViewer.set({
-//    codeName: 'js',
-//    readOnly: 0,
-//    theme: 'hopscotch',
-//    autoBeautify: true,
-//    autoCloseTags: true,
-//    autoCloseBrackets: true,
-//    lineWrapping: true,
-//    styleActiveLine: true,
-//    smartIndent: true,
-//    indentWithTabs: true
-//})
-
 btnEdit.innerHTML = 'Save'
 btnEdit.className = pfx + 'btn-prim ' + pfx + 'btn-import'
 btnEdit.onclick = function () {
     var html = htmlCodeViewer.editor.getValue()
     var css = cssCodeViewer.editor.getValue()
-    //var js = jsCodeViewer.editor.getValue()
     editor.DomComponents.getWrapper().set('content', '')
 
     editor.setComponents(html.trim())
-    //editor.addComponents({
-    //    type: 'script',
-    //    content: js
-    //})
     editor.setStyle(css)
-    let gjsPage = document.getElementById("gjs");
-    //let jsEl = document.getElementById("gjs-custom-js");
-    //if (!jsEl) {
-    //    jsEl = document.createElement('script');
-    //    jsEl.id = "gjs-custom-js";
-    //    gjsPage.appendChild(jsEl);
-    //}
-    //jsEl.innerHTML = js;
 
     modal.close()
 }

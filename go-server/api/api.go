@@ -22,8 +22,7 @@ func Engine(db db.Database) *gin.Engine {
 	dbInstance = db
 	// Setup the cookie store for session management
 	r.Use(sessions.Sessions("mysession", cookie.NewStore(secret)))
-	r.Use(static.Serve("/", static.LocalFile("./static", true)))
-
+	r.Use(static.ServeRoot("/", "./static"))
 	// Login and logout routes
 	r.POST("/login", Login)
 	r.GET("/logout", Logout)
@@ -39,7 +38,7 @@ func Engine(db db.Database) *gin.Engine {
 	}
 
 	// Page collection
-	pageCollection := r.Group("/page")
+	pageCollection := r.Group("/page/:name")
 
 	pageCollection.Use(AuthRequired)
 	{

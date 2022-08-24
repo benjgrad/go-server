@@ -29,6 +29,7 @@ func SetPage(c *gin.Context) {
 	}
 	session := sessions.Default(c)
 	page.UserId = session.Get("user").(int)
+	page.Name = c.Param("name")
 	if page.Name == "" {
 		page.Name = "/"
 	}
