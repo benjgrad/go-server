@@ -28,6 +28,7 @@ func Engine(db db.Database) *gin.Engine {
 	r.GET("/logout", Logout)
 
 	r.POST("/contact", Contact)
+	r.POST("/asset", SaveFileHandler)
 
 	// Private group, require authentication to access
 	userCollection := r.Group("/user")

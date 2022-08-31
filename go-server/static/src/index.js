@@ -68,7 +68,13 @@ const editor = grapesjs.init({
             local: { key: `gjsProject-${window.location.pathname}` },
         },
     },
+    assetManager: {
+        // Upload endpoint, set `false` to disable upload, default `false`
+        upload: '/asset',
 
+        // The name used in POST to pass uploaded files, default: `'files'`
+        uploadName: 'file',
+    },
     fromElement: true,
     height: "100vh",
     plugins: [
