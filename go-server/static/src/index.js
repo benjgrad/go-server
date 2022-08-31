@@ -7,6 +7,91 @@ const logoutBtn = logoutDialog.querySelector('#logoutBtn');
 const logoutCancelBtn = logoutDialog.querySelector('#logoutCancelBtn');
 const loginCancelBtn = loginDialog.querySelector('#loginCancelBtn');
 
+
+
+/***
+0.1
+This scripts read images element from the web page and the css file (backgrounds) 
+***/
+/*
+get image src from CSS file
+Just local urls
+param ed: editor
+*/
+function imgCSS(editor) {
+    var code = editor.getCss(), imags;
+    local = document.location.host.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    regex = new RegExp('(http:|https:){0,1}\/\/' + local, 'g');
+    code = code.replace(regex, ''); //limpiar url locales
+    code = code.replace(/(http:|https:){0,1}\/\//g, '#'); //marcar url no locales
+    imags = code.match(/\("{0,1}[^#^\(]+?\.(gif|jpg|png|jpeg|tif|tiff|webp|svg|ico)"{0,1}\)/gi);
+    if (imags !== null) {
+        imags = imags.map(function (x) { return x.replace(/\("{0,1}(.*){0,1}"\)/, '$1'); });
+    }
+    else
+        imags = [];
+    return imags;
+}
+/*
+get image src from HTML file
+just local urls
+*/
+function imgHTML() {
+    var imags = [];
+    var src;
+    var code = document.querySelector('.gjs-frame').contentDocument;
+    code = code.getElementsByTagName('img');
+    for (i = 0; i < code.length; i++) {
+        src = code[i].src;
+        src = src.replace(location.origin, '');
+        if (!src.includes('http')) {
+            imags.push(src);
+        }
+    };
+
+    return imags;
+}
+
+
+/**
+Convierte a binario los datos devueltos en la lectura
+**/
+function arrayBufferToBinary(buffer) {
+    var binary = '';
+    var bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => binary += String.fromCharCode(b));
+    return binary;
+};
+
+/*
+Leer los archivos de imagen
+param: ed  el editor
+*/
+async function readImgs(ed) {
+    var ImgData;
+    var listaImgs, imagsSet;
+    var peticion, archivo;
+    var content = [];
+    listaImgs = imgHTML(ed).concat(imgCSS(ed));
+    imagsSet = new Set(listaImgs);
+    listaImgs = [...imagsSet];
+    for (var i = 0; i < listaImgs.length; i++) {
+        try {
+            peticion = await fetch(listaImgs[i]);
+            imgData = await peticion.arrayBuffer();
+            archivo = peticion.url.match(/[^\/\.]*\.[^\.]*$/, '$&')[0];
+            content[archivo] = arrayBufferToBinary(imgData);;
+        }
+        catch (e) {
+            console.log("error " + e.message);
+
+        }
+    };
+    return content
+}// JavaScript Document
+
+
+
 // If a browser doesn't support the dialog, then hide the
 // dialog contents by default.
 if (typeof loginDialog.showModal !== 'function') {
@@ -44,7 +129,7 @@ logoutBtn.addEventListener('click', () => {
     location.reload();
 })
 const pageName = new URLSearchParams(window.location.search).get("page")
-const url = !pageName ? '/page' : `/page/${new URLSearchParams(window.location.search).get("page") ?? ""}`;
+const storageUrl = !pageName ? '/page' : `/page/${new URLSearchParams(window.location.search).get("page") ?? ""}`;
 
 const prefix = "gjs-scroll"
 const editor = grapesjs.init({
@@ -60,8 +145,8 @@ const editor = grapesjs.init({
         // Default storage options
         options: {
             remote: {
-                urlStore: url,
-                urlLoad: url,
+                urlStore: storageUrl,
+                urlLoad: storageUrl,
                 onStore: (data) => ({ name: pageName, data: JSON.stringify(data) }),
 
             },
@@ -91,6 +176,18 @@ const editor = grapesjs.init({
         'grapesjs-blocks-bootstrap4',
     ],
     pluginsOpts: {
+        'grapesjs-plugin-export': {
+            root: {
+                css: {
+                    'style.css': ed => ed.getCss(),
+                },
+                img: async editor => {
+                    const images = await readImgs(editor);
+                    return images;
+                },
+                'index.html': ed => `<body>${ed.getHtml().replaceAll(`src="/assets/`, `src="./img/`)}</body>`
+            }
+        },
         'grapesjs-tui-image-editor': {
             config: {
                 includeUI: {
@@ -155,7 +252,29 @@ editor.Commands.add('save-db', {
             method: "GET"
         }).then(res => {
             if (res.ok) {
-                editor.store();
+                body = {
+                    name: pageName,
+                    data: JSON.stringify(editor.getProjectData())
+                }
+
+                fetch(storageUrl, {
+                    method: "POST",
+                    mode: 'cors', // no-cors, *cors, same-origin
+                    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                    credentials: 'same-origin', // include, *same-origin, omit
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    body: JSON.stringify(body)
+                }).then(res => {
+                    if (res.ok) {
+                        alert("Saved successfully!");
+                    }
+                    else {
+                        alert("Could not save:\n\n" + res.statusText);
+                    }
+                })
             }
             else {
                 loginDialog.showModal();

@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
 
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>GrapesJS Scroll Plugin</title>
-    <link href="/src/dist/css/grapes.min.css" rel="stylesheet">
+    <link href="/src/dist/css/grapes.min.css" rel="stylesheet" />
     <script src="/src/dist/grapes.min.js"></script>
     <script src="https://unpkg.com/grapesjs-tui-image-editor"></script>
     <script src="https://unpkg.com/grapesjs-blocks-basic"></script>
@@ -18,74 +18,66 @@
     <script src="https://unpkg.com/grapesjs-plugin-scroll"></script>
     <script src="https://unpkg.com/grapesjs-plugin-chartjs"></script>
 
-
     <style>
-        body,
-        html {
-            height: 100%;
-            margin: 0;
-        }
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
-    <div id="gjs" style="height:0px; overflow:hidden">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Times New Roman&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arial Black&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tahoma&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier%20New&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open%20Sans&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap">
-        <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-        <div style="margin:100px 100px 25px; padding:25px; font:caption">
-
-            <p>Welcome to a web editor built with GrapesJS.</p>
-            <p> To get started, start by dragging blocks in from the block
-                manager in the top right corner. Styles can be edited by clicking on the paintbrush icon and selecting
-                the element you wish to edit. For component-specific configurations (such as the charts data), select
-                the gears icon. To save, you will need to log in.
-            </p>
-            <p>
-                For more information on this project, check out the repo for <a
-                    href="https://github.com/benjgrad/go-server">go-server</a>, and for more details on the editor,
-                please visit <a href="https://github.com/benjgrad/www-resume">www-resume</a>, which takes advantage of
-                <a href="https://github.com/benjgrad/grapesjs-plugin-scroll">grapesjs-plugin-scroll</a> and <a
-                    href="https://github.com/benjgrad/grapesjs-plugin-chartjs">grapesjs-plugin-chartjs</a>.
-            </p>
-            <p>
-                Since user signup currently is not supported, you can use Username: guest and Password: public.
-            </p>
-        </div>
+  <body>
+    <div id="gjs" style="height: 0px; overflow: hidden">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Times New Roman&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arial Black&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tahoma&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Verdana&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier%20New&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open%20Sans&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" />
+      <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+      <div style="margin: 100px 100px 25px; padding: 25px; font: caption">
+        <p>Welcome to a web editor built with GrapesJS.</p>
+        <p>
+          To get started, start by dragging blocks in from the block manager in the top right corner. Styles can be
+          edited by clicking on the paintbrush icon and selecting the element you wish to edit. For component-specific
+          configurations (such as the charts data), select the gears icon. To save, you will need to log in.
+        </p>
+        <p>
+          For more information on this project, check out the repo for
+          <a href="https://github.com/benjgrad/go-server">go-server</a>, and for more details on the editor, please
+          visit <a href="https://github.com/benjgrad/www-resume">www-resume</a>, which takes advantage of
+          <a href="https://github.com/benjgrad/grapesjs-plugin-scroll">grapesjs-plugin-scroll</a> and
+          <a href="https://github.com/benjgrad/grapesjs-plugin-chartjs">grapesjs-plugin-chartjs</a>.
+        </p>
+        <p>Since user signup currently is not supported, you can use Username: guest and Password: public.</p>
+      </div>
     </div>
     <dialog id="loginDialog">
+      <form method="POST" action="/login">
+        <h3>Login</h3>
+        <!-- TODO submit this using the fetch API, and handle the response -->
         <form method="POST" action="/login">
-            <h3>Login</h3>
-            <!-- TODO submit this using the fetch API, and handle the response -->
-            <form method="POST" action="/login">
-                <p><label>Username</label><input name="username" type="text" value="" /></p>
-                <p><label>Password</label><input name="password" type="password" value="" /></p>
-                <input type="button" id="loginCancelBtn" value="Cancel" />
-                <input type="submit" id="loginBtn" value="Login" />
-            </form>
+          <p><label>Username</label><input id="loginUser" name="username" type="text" value="" /></p>
+          <p><label>Password</label><input id="loginPass" name="password" type="password" value="" /></p>
+          <input type="button" id="loginCancelBtn" value="Cancel" />
+          <input type="submit" id="loginBtn" value="Login" />
         </form>
+      </form>
     </dialog>
     <dialog id="logoutDialog">
-        <h3>Logout</h3>
-        <input type="button" id="logoutCancelBtn" value="Cancel" />
-        <input type="button" value="Logout" id="logoutBtn" />
+      <h3>Logout</h3>
+      <input type="button" id="logoutCancelBtn" value="Cancel" />
+      <input type="button" value="Logout" id="logoutBtn" />
     </dialog>
     <script src="/src/index.js"></script>
-
-
-</body>
-
+  </body>
 </html>

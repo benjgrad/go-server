@@ -3,7 +3,6 @@ package api
 import (
     "github.com/gin-gonic/gin"
     "net/http"
-    "fmt"
     "path/filepath"
 
     "github.com/google/uuid" // To generate random file names
@@ -35,7 +34,6 @@ func SaveFileHandler(c *gin.Context) {
         data[i] = "/assets/" + newFileName
 
     }
-    response := struct{data []string}{ data: data }
     c.JSON(http.StatusOK, gin.H{
         "data": data,
     })
