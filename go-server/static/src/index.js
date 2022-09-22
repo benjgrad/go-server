@@ -7,6 +7,8 @@ const logoutBtn = logoutDialog.querySelector('#logoutBtn');
 const logoutCancelBtn = logoutDialog.querySelector('#logoutCancelBtn');
 const loginCancelBtn = loginDialog.querySelector('#loginCancelBtn');
 
+const loginForm = loginDialog.querySelector("#loginForm");
+loginForm.action += window.location.search
 
 
 /***
