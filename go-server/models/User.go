@@ -11,3 +11,8 @@ type User struct {
 type UserList struct {
 	Users []User `json:"users"`
 }
+
+type LoginCredentials struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

@@ -16,4 +16,3 @@ RUN go build -o /go-server
 EXPOSE 8459
 
 CMD [ "/go-server" ]
-# CMD ["go", "run", "server.go"]

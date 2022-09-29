@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/smtp"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -36,17 +37,16 @@ func (a *loginAuth) Next(fromServer []byte, more bool) ([]byte, error) {
 }
 
 func SendEmail(name string, recipient string, innerMessage string, subject string) {
-	from := "bengrady4@outlook.com"
-	password := "q21wQ@!W"
+	from, password, smtpHost, smtpPort :=
+		os.Getenv("EMAIL_ADDR"),
+		os.Getenv("EMAIL_PASSWORD"),
+		os.Getenv("EMAIL_HOST"),
+		os.Getenv("EMAIL_PORT")
 
 	// Receiver email address.
 	to := []string{
 		from, recipient,
 	}
-
-	// smtp server configuration.
-	smtpHost := "smtp-mail.outlook.com"
-	smtpPort := "587"
 
 	// Message.
 	message := []byte("From: " + from + "\r\n" +

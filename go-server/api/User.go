@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/benjgrad/go-server/models"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,14 @@ import (
 func Login(c *gin.Context) {
 	session := sessions.Default(c)
 	//TODO change from postForm to Json
+
+	credentials := models.LoginCredentials{}
+	// using BindJson method to serialize body with struct
+	if err := c.BindJSON(&credentials); err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+
 	username := c.PostForm("username")
 	password := c.PostForm("password")
 	returnURL := c.DefaultQuery("return_url", "/")
